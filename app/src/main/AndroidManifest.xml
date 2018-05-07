@@ -19,7 +19,7 @@ package="com.shenkar.shakedzrihen.upcomingbdaylist">
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
     </activity>
-    <activity android:name="com.shenkar.shakedzrihen.upcomingbdaylist.BirthdayListManager">
+    <activity android:name="com.shenkar.shakedzrihen.upcomingbdaylist.AddNewBirthdayListItem">
     </activity>
 </application>
 

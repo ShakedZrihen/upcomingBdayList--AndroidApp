@@ -9,7 +9,7 @@ import android.widget.EditText;
 
 
 
-public class BirthdayListManager extends AppCompatActivity {
+public class AddNewBirthdayListItem extends AppCompatActivity {
 
     EditText _fullName;
     Birthday _birthday;
@@ -20,7 +20,7 @@ public class BirthdayListManager extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_birthday);
         _fullName = findViewById(R.id.fullName);
-        _birthday = new Birthday(BirthdayListManager.this, (EditText) findViewById(R.id.birthday));
+        _birthday = new Birthday(AddNewBirthdayListItem.this, (EditText) findViewById(R.id.birthday));
         _addBtn = findViewById(R.id.addBirthdayBtn);
 
         _addBtn.setOnClickListener(new View.OnClickListener() {
