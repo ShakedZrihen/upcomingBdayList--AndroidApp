@@ -1,5 +1,7 @@
 package com.shenkar.shakedzrihen.upcomingbdaylist;
 
+import android.arch.persistence.room.Room;
+import android.arch.persistence.room.RoomDatabase;
 import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Bundle;
@@ -13,12 +15,12 @@ import android.view.View;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView birthdayList;
     RecyclerView.Adapter birthdayListAdapter;
-    ArrayList<BirthdayListItem> names;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,23 +31,15 @@ public class MainActivity extends AppCompatActivity {
 
         birthdayList = findViewById(R.id.birthday_list);
         birthdayList.setLayoutManager(new LinearLayoutManager(this));
-        names = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            String myFormat = "dd/MM/yyyy"; //In which you need put here
-            SimpleDateFormat simpleDataFormat = new SimpleDateFormat(myFormat);
-            Calendar cal = Calendar.getInstance();
-            cal.set(Calendar.YEAR, 1994);
-            cal.set(Calendar.MONTH, 1);
-            cal.set(Calendar.DATE, i + 1);
+        AppDatabase db = Room.databaseBuilder(
+                getApplicationContext(),
+                AppDatabase.class,
+                "BirthdayListDB"
+        ).allowMainThreadQueries().fallbackToDestructiveMigration().build();
 
-            BirthdayListItem newList = new BirthdayListItem(
-                    "Shaked #" + i,
-                    cal.getTime(),
-                    "This is comment #" + i
-            );
-            names.add(newList);
-        }
-        birthdayListAdapter = new BirthdayListAdapter(names);
+        List<BirthdayListItem> bdListItems = db.birthdayListItemDao().getAllItems();
+
+        birthdayListAdapter = new BirthdayListAdapter(bdListItems);
         birthdayList.setAdapter(birthdayListAdapter);
         FloatingActionButton addNewListItem = (FloatingActionButton) findViewById(R.id.fab);
 

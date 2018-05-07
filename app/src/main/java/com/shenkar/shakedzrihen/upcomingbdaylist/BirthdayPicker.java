@@ -6,6 +6,9 @@ import android.icu.util.Calendar;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+
+import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class BirthdayPicker {
@@ -48,5 +51,8 @@ public class BirthdayPicker {
 
     }
 
-    public java.util.Date getBirthday(){return _calendar.getTime();}
+    public String getBirthday() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+        return dateFormat.format(_calendar.getTime());
+    }
 }

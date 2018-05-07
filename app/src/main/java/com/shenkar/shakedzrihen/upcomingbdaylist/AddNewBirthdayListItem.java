@@ -1,5 +1,7 @@
 package com.shenkar.shakedzrihen.upcomingbdaylist;
 
+import android.arch.persistence.room.Room;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -25,12 +27,24 @@ public class AddNewBirthdayListItem extends AppCompatActivity {
         _comment = findViewById(R.id.comment);
         _addBtn = findViewById(R.id.addBirthdayBtn);
 
+        final AppDatabase db = Room.databaseBuilder(
+                getApplicationContext(),
+                AppDatabase.class,
+                "BirthdayListDB"
+        ).allowMainThreadQueries().fallbackToDestructiveMigration().build();
 
         //  Set listeners
         _addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                db.birthdayListItemDao().insertAll(
+                        new BirthdayListItem(
+                                _fullName.getText().toString(),
+                                _birthday.getBirthday(),
+                                _comment.getText().toString()
+                        )
+                );
+                startActivity(new Intent(AddNewBirthdayListItem.this, MainActivity.class));
             }
         });
     }

@@ -17,13 +17,13 @@ public class BirthdayListItem {
     private String _fullName;
 
     @ColumnInfo(name = "birthday")
-    private Date _birthday;
+    private String _birthday;
 
     @ColumnInfo(name = "comment")
     private String _comment;
 
 
-    public BirthdayListItem(String fullName, Date birthday, String comment) {
+    public BirthdayListItem(String fullName, String birthday, String comment) {
         setFullName(fullName);
         setBirthday(birthday);
         setComment(comment);
@@ -34,7 +34,7 @@ public class BirthdayListItem {
 
     public String getFullName() { return _fullName; }
 
-    public Date getBirthday() { return _birthday; }
+    public String getBirthday() { return _birthday; }
 
     public String getComment(){ return _comment; }
 
@@ -44,5 +44,7 @@ public class BirthdayListItem {
 
     public void setFullName(String fullName) { _fullName = fullName; }
 
-    public void setBirthday(Date birthday) { _birthday = birthday; }
+    public void setBirthday(String birthday) { _birthday = birthday; }
+
+    public void setId(int id){_id = id;}
 }
