@@ -37,8 +37,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Date"
-        android:inputType="date" />
+        android:clickable="true"
+        android:hint="Date of birth"
+        android:editable="false"
+        />
+
+    <EditText
+        android:id="@+id/comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Comment"
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/addBirthdayBtn"

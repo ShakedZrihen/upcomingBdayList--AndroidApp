@@ -10,9 +10,9 @@ import java.util.ArrayList;
 
 class BirthdayListAdapter extends RecyclerView.Adapter<BirthdayListAdapter.ViewHolder> {
 
-    private ArrayList<String> birthday;
+    private ArrayList<BirthdayListItem> birthday;
 
-    public BirthdayListAdapter(ArrayList<String> birthday) {
+    public BirthdayListAdapter(ArrayList<BirthdayListItem> birthday) {
         this.birthday = birthday;
     }
 
@@ -28,7 +28,9 @@ class BirthdayListAdapter extends RecyclerView.Adapter<BirthdayListAdapter.ViewH
 
     @Override
     public void onBindViewHolder(BirthdayListAdapter.ViewHolder holder, int position) {
-        holder.fullName.setText(birthday.get(position));
+        holder.fullName.setText(birthday.get(position).getFullName());
+        holder.birthday.setText(birthday.get(position).getBirthday());
+        holder.comment.setText(birthday.get(position).getComment());
     }
 
     @Override
@@ -38,9 +40,14 @@ class BirthdayListAdapter extends RecyclerView.Adapter<BirthdayListAdapter.ViewH
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView fullName;
+        public TextView birthday;
+        public TextView comment;
+
         public ViewHolder(View itemView) {
             super(itemView);
             fullName = itemView.findViewById(R.id.fullName);
+            birthday = itemView.findViewById(R.id.bday);
+            comment = itemView.findViewById(R.id.description);
         }
     }
 }

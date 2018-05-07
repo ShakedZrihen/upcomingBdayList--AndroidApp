@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
     RecyclerView birthdayList;
     RecyclerView.Adapter birthdayListAdapter;
-    ArrayList<String> names;
+    ArrayList<BirthdayListItem> names;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,12 @@ public class MainActivity extends AppCompatActivity {
         birthdayList.setLayoutManager(new LinearLayoutManager(this));
         names = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            names.add("test # " + i);
+            BirthdayListItem newList = new BirthdayListItem(
+                    "Shaked #" + i,
+                    (i+1) + "-2-1994",
+                    "This is comment #" + i
+            );
+            names.add(newList);
         }
         birthdayListAdapter = new BirthdayListAdapter(names);
         birthdayList.setAdapter(birthdayListAdapter);

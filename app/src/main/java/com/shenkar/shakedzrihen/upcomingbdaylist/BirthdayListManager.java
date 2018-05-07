@@ -8,22 +8,22 @@ import android.widget.Button;
 import android.widget.EditText;
 
 
+
 public class BirthdayListManager extends AppCompatActivity {
 
-    EditText fullName;
-    EditText birthday;
-    Button addBtn;
+    EditText _fullName;
+    Birthday _birthday;
+    Button _addBtn;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_birthday);
-        fullName = findViewById(R.id.fullName);
-        birthday = findViewById(R.id.birthday);
-        addBtn = findViewById(R.id.addBirthdayBtn);
+        _fullName = findViewById(R.id.fullName);
+        _birthday = new Birthday(BirthdayListManager.this, (EditText) findViewById(R.id.birthday));
+        _addBtn = findViewById(R.id.addBirthdayBtn);
 
-
-        addBtn.setOnClickListener(new View.OnClickListener() {
+        _addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
