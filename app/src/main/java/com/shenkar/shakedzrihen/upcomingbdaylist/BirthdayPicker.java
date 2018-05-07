@@ -52,7 +52,7 @@ public class BirthdayPicker {
     }
 
     public String getBirthday() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         return dateFormat.format(_calendar.getTime());
     }
 }

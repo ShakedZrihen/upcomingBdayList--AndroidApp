@@ -31,11 +31,14 @@ public class MainActivity extends AppCompatActivity {
 
         birthdayList = findViewById(R.id.birthday_list);
         birthdayList.setLayoutManager(new LinearLayoutManager(this));
+
+
         AppDatabase db = Room.databaseBuilder(
                 getApplicationContext(),
                 AppDatabase.class,
                 "BirthdayListDB"
-        ).allowMainThreadQueries().fallbackToDestructiveMigration().build();
+        ).fallbackToDestructiveMigration().allowMainThreadQueries().build();
+
 
         List<BirthdayListItem> bdListItems = db.birthdayListItemDao().getAllItems();
 

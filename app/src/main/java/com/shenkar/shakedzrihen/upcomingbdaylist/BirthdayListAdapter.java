@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,11 @@ class BirthdayListAdapter extends RecyclerView.Adapter<BirthdayListAdapter.ViewH
 
     @Override
     public void onBindViewHolder(BirthdayListAdapter.ViewHolder holder, int position) {
-        holder.fullName.setText(birthday.get(position).getFullName());
+        try {
+            holder.fullName.setText(birthday.get(position).getFullName() + " (" + birthday.get(position).getAge() + ")");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         holder.birthday.setText(birthday.get(position).getBirthday());
         holder.comment.setText(birthday.get(position).getComment());
     }
