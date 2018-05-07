@@ -12,7 +12,8 @@ import android.widget.EditText;
 public class AddNewBirthdayListItem extends AppCompatActivity {
 
     EditText _fullName;
-    Birthday _birthday;
+    BirthdayPicker _birthday;
+    EditText _comment;
     Button _addBtn;
 
     @Override
@@ -20,9 +21,12 @@ public class AddNewBirthdayListItem extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_birthday);
         _fullName = findViewById(R.id.fullName);
-        _birthday = new Birthday(AddNewBirthdayListItem.this, (EditText) findViewById(R.id.birthday));
+        _birthday = new BirthdayPicker(AddNewBirthdayListItem.this, (EditText) findViewById(R.id.birthday));
+        _comment = findViewById(R.id.comment);
         _addBtn = findViewById(R.id.addBirthdayBtn);
 
+
+        //  Set listeners
         _addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

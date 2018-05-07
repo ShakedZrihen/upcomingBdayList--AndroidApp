@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 class BirthdayListAdapter extends RecyclerView.Adapter<BirthdayListAdapter.ViewHolder> {
@@ -29,7 +30,13 @@ class BirthdayListAdapter extends RecyclerView.Adapter<BirthdayListAdapter.ViewH
     @Override
     public void onBindViewHolder(BirthdayListAdapter.ViewHolder holder, int position) {
         holder.fullName.setText(birthday.get(position).getFullName());
-        holder.birthday.setText(birthday.get(position).getBirthday());
+
+        String myFormat = "dd/MM/yyyy"; //In which you need put here
+        SimpleDateFormat simpleDataFormat = new SimpleDateFormat(myFormat);
+        holder.birthday.setText(simpleDataFormat.format(
+                birthday.get(position).getBirthday().getTime()
+        ));
+
         holder.comment.setText(birthday.get(position).getComment());
     }
 
