@@ -6,16 +6,15 @@ import android.icu.util.Calendar;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
-
 import java.text.SimpleDateFormat;
 
-public class Birthday {
+public class BirthdayPicker {
     private Context _context;
     private EditText _birthday;
     private Calendar _calendar;
     private DatePickerDialog.OnDateSetListener _dateListener;
 
-    public Birthday(final Context context, EditText birthday) {
+    public BirthdayPicker(final Context context, EditText birthday) {
         _context = context;
         _birthday = birthday;
         _calendar = Calendar.getInstance();
@@ -31,10 +30,10 @@ public class Birthday {
             }
 
             private void updateLabel() {
-                String myFormat = "dd/MM/yy"; //In which you need put here
-                SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
+                String myFormat = "dd/MM/yyyy"; //In which you need put here
+                SimpleDateFormat simpleDataFormat = new SimpleDateFormat(myFormat);
 
-                _birthday.setText(sdf.format(_calendar.getTime()));
+                _birthday.setText(simpleDataFormat.format(_calendar.getTime()));
             }
         };
 
@@ -48,4 +47,6 @@ public class Birthday {
         });
 
     }
+
+    public java.util.Date getBirthday(){return _calendar.getTime();}
 }
