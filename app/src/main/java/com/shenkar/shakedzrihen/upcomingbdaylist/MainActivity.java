@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import java.text.SimpleDateFormat;
@@ -21,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
     RecyclerView birthdayList;
     RecyclerView.Adapter birthdayListAdapter;
+    List<BirthdayListItem> bdListItems;
+    private static final String TAG = "MyActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,20 +35,21 @@ public class MainActivity extends AppCompatActivity {
         birthdayList = findViewById(R.id.birthday_list);
         birthdayList.setLayoutManager(new LinearLayoutManager(this));
 
+        new Thread(new Runnable(){
+            public void run() {
+                Log.d(TAG, "here");
+                AppDatabase db = Room.databaseBuilder(
+                        getApplicationContext(),
+                        AppDatabase.class,
+                        "BirthdayListDB"
+                ).fallbackToDestructiveMigration().build();
+                bdListItems = db.birthdayListItemDao().getAllItems();
+                birthdayListAdapter = new BirthdayListAdapter(bdListItems);
+                birthdayList.setAdapter(birthdayListAdapter);
+            }
+        }).start();
 
-        AppDatabase db = Room.databaseBuilder(
-                getApplicationContext(),
-                AppDatabase.class,
-                "BirthdayListDB"
-        ).fallbackToDestructiveMigration().allowMainThreadQueries().build();
-
-
-        List<BirthdayListItem> bdListItems = db.birthdayListItemDao().getAllItems();
-
-        birthdayListAdapter = new BirthdayListAdapter(bdListItems);
-        birthdayList.setAdapter(birthdayListAdapter);
-        FloatingActionButton addNewListItem = (FloatingActionButton) findViewById(R.id.fab);
-
+        FloatingActionButton addNewListItem = findViewById(R.id.fab);
 
         addNewListItem.setOnClickListener(new View.OnClickListener() {
             @Override
