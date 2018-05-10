@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class BirthdayListActivity extends AppCompatActivity {
 
     RecyclerView birthdayList;
     RecyclerView.Adapter birthdayListAdapter;
@@ -37,9 +37,9 @@ public class MainActivity extends AppCompatActivity {
         new Thread(new Runnable(){
             public void run() {
                 Log.d(TAG, "here");
-                AppDatabase db = Room.databaseBuilder(
+                BirthdayListDatabase db = Room.databaseBuilder(
                         getApplicationContext(),
-                        AppDatabase.class,
+                        BirthdayListDatabase.class,
                         "BirthdayListDB"
                 ).fallbackToDestructiveMigration().build();
                 bdListItems = db.birthdayListItemDao().getAllItems();
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         addNewListItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, AddNewBirthdayListItem.class));
+                startActivity(new Intent(BirthdayListActivity.this, AddNewBirthdayListItem.class));
 
             }
         });

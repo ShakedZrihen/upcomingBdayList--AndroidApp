@@ -2,17 +2,12 @@ package com.shenkar.shakedzrihen.upcomingbdaylist;
 
 import android.arch.persistence.room.Room;
 import android.content.Intent;
-import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 
 public class AddNewBirthdayListItem extends AppCompatActivity {
@@ -33,9 +28,9 @@ public class AddNewBirthdayListItem extends AppCompatActivity {
 
 
 
-        final AppDatabase db = Room.databaseBuilder(
+        final BirthdayListDatabase db = Room.databaseBuilder(
                 getApplicationContext(),
-                AppDatabase.class,
+                BirthdayListDatabase.class,
                 "BirthdayListDB"
         ).allowMainThreadQueries().fallbackToDestructiveMigration().build();
 
@@ -50,7 +45,7 @@ public class AddNewBirthdayListItem extends AppCompatActivity {
                                 _comment.getText().toString()
                         )
                 );
-                startActivity(new Intent(AddNewBirthdayListItem.this, MainActivity.class));
+                startActivity(new Intent(AddNewBirthdayListItem.this, BirthdayListActivity.class));
             }
         });
     }
