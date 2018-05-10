@@ -10,7 +10,7 @@ import java.util.List;
 
 @Dao
 public interface BirthdayListItemDao {
-    @Query("SELECT * FROM BirthdayListItem ORDER BY BirthdayListItem.nextBDay")
+    @Query("SELECT * FROM BirthdayListItem")
     List<BirthdayListItem> getAllItems();
 
     @Insert

@@ -25,15 +25,12 @@ public class BirthdayListItem {
     @ColumnInfo(name = "comment")
     private String _comment;
 
-    @ColumnInfo(name = "nextBDay")
-    private int _nextBDay;
 
 
-    public BirthdayListItem(String fullName, String birthday, String comment, int nextBDay){
+    public BirthdayListItem(String fullName, String birthday, String comment){
         setFullName(fullName);
         setBirthday(birthday);
         setComment(comment);
-        set_nextBDay(nextBDay);
     }
 
     //    Getters
@@ -67,7 +64,6 @@ public class BirthdayListItem {
 
     }
 
-    public int getNextBDay(){return _nextBDay;}
 
     //    Setters
     public void setComment(String description){ _comment = description; }
@@ -78,5 +74,33 @@ public class BirthdayListItem {
 
     public void setId(int id){_id = id;}
 
-    public void set_nextBDay(int nextBday){ _nextBDay = nextBday;}
+    // Methods
+
+    public int calculateNextBDay(String birthday) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date convertedDate = dateFormat.parse(birthday);
+
+        Calendar birhday = Calendar.getInstance();
+        birhday.setTime(convertedDate);
+        Calendar today = Calendar.getInstance();
+
+        int nextBday = 0;
+
+        if ( birhday.get(Calendar.MONTH) >= today.get(Calendar.MONTH)){
+            nextBday = (birhday.get(Calendar.MONTH) - today.get(Calendar.MONTH)) * 31;
+            if (birhday.get(Calendar.DAY_OF_MONTH) >= today.get(Calendar.DAY_OF_MONTH)){
+                nextBday += birhday.get(Calendar.DAY_OF_MONTH) - today.get(Calendar.DAY_OF_MONTH);
+            } else {
+                nextBday += today.get(Calendar.DAY_OF_MONTH) - birhday.get(Calendar.DAY_OF_MONTH);
+            }
+        } else {
+            nextBday = (12 - (today.get(Calendar.MONTH) - birhday.get(Calendar.MONTH))) * 31;
+            if (birhday.get(Calendar.DAY_OF_MONTH) >= today.get(Calendar.DAY_OF_MONTH)){
+                nextBday += birhday.get(Calendar.DAY_OF_MONTH) - today.get(Calendar.DAY_OF_MONTH);
+            } else {
+                nextBday += today.get(Calendar.DAY_OF_MONTH) - birhday.get(Calendar.DAY_OF_MONTH);
+            }
+        }
+        return nextBday;
+    }
 }

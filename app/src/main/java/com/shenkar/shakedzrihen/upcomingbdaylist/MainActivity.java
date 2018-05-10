@@ -1,9 +1,7 @@
 package com.shenkar.shakedzrihen.upcomingbdaylist;
 
 import android.arch.persistence.room.Room;
-import android.arch.persistence.room.RoomDatabase;
 import android.content.Intent;
-import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -13,9 +11,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.text.ParseException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,6 +43,20 @@ public class MainActivity extends AppCompatActivity {
                         "BirthdayListDB"
                 ).fallbackToDestructiveMigration().build();
                 bdListItems = db.birthdayListItemDao().getAllItems();
+                Collections.sort(bdListItems, new Comparator<BirthdayListItem>() {
+
+                    @Override
+                    public int compare(BirthdayListItem o1, BirthdayListItem o2) {
+                        try {
+                            int generateBDayo1 = o1.calculateNextBDay(o1.getBirthday());
+                            int generateBDayo2 = o2.calculateNextBDay(o2.getBirthday());
+                            return Integer.compare(generateBDayo1, generateBDayo2);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        return 0;
+                    }
+                } );
                 birthdayListAdapter = new BirthdayListAdapter(bdListItems);
                 birthdayList.setAdapter(birthdayListAdapter);
             }
