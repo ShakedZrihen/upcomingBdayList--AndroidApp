@@ -31,6 +31,8 @@ public class AddNewBirthdayListItem extends AppCompatActivity {
         _comment = findViewById(R.id.comment);
         _addBtn = findViewById(R.id.addBirthdayBtn);
 
+
+
         final AppDatabase db = Room.databaseBuilder(
                 getApplicationContext(),
                 AppDatabase.class,
@@ -69,14 +71,14 @@ public class AddNewBirthdayListItem extends AppCompatActivity {
         int nextBday = 0;
 
         if ( birhday.get(Calendar.MONTH) >= today.get(Calendar.MONTH)){
-            nextBday = birhday.get(Calendar.MONTH) - today.get(Calendar.MONTH);
+            nextBday = (birhday.get(Calendar.MONTH) - today.get(Calendar.MONTH)) * 31;
             if (birhday.get(Calendar.DAY_OF_MONTH) >= today.get(Calendar.DAY_OF_MONTH)){
                 nextBday += birhday.get(Calendar.DAY_OF_MONTH) - today.get(Calendar.DAY_OF_MONTH);
             } else {
                 nextBday += today.get(Calendar.DAY_OF_MONTH) - birhday.get(Calendar.DAY_OF_MONTH);
             }
         } else {
-            nextBday = 12 - (today.get(Calendar.MONTH) - birhday.get(Calendar.MONTH));
+            nextBday = (12 - (today.get(Calendar.MONTH) - birhday.get(Calendar.MONTH))) * 31;
             if (birhday.get(Calendar.DAY_OF_MONTH) >= today.get(Calendar.DAY_OF_MONTH)){
                 nextBday += birhday.get(Calendar.DAY_OF_MONTH) - today.get(Calendar.DAY_OF_MONTH);
             } else {

@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         birthdayList = findViewById(R.id.birthday_list);
         birthdayList.setLayoutManager(new LinearLayoutManager(this));
 
+
         new Thread(new Runnable(){
             public void run() {
                 Log.d(TAG, "here");
