@@ -64,9 +64,9 @@ automations:
           comment: |
             additions: {{ calculate.additions }} 
             deletions: {{ calculate.deletions }}
-            ratio: {{ calculate.additions / (calculate.additions + calculate.deletions) }}
-            adds: {{ branch.diff.files_metadata | map(attr='additions') | join(",") }}
-            dels: {{ branch.diff.files_metadata | map(attr='deletions') | join(",") }}
+            ratio: {{ branch.diff.files_metadata | length }}
+            adds: {{ branch.diff.files_metadata | map(attr='additions') | join }}
+            dels: {{ branch.diff.files_metadata | map(attr='deletions') | join }}
       # - action: approve@v1
   
   mark_long_review:
