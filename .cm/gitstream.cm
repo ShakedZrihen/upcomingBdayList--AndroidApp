@@ -65,8 +65,8 @@ automations:
             additions: {{ calculate.additions }} 
             deletions: {{ calculate.deletions }}
             ratio: {{ branch.diff.files_metadata | length }}
-            adds: {{ branch.diff.files_metadata | map(attr='additions') | first }}
-            dels: {{ branch.diff.files_metadata | map(attr='deletions') | last }}
+            adds: {{ branch.diff.files_metadata | map(attr='additions') | length }}
+            dels: {{ branch.diff.files_metadata | map(attr='deletions') | length }}
       # - action: approve@v1
   
   mark_long_review:
