@@ -16,8 +16,7 @@ manifest:
 # Conditions consists of an expression, which are wrapped with double curly braces, and 
 # includes a context variable like `files` and filter functions like `length`. Filters 
 # functions are essentially functions that can be applied to context variables. They are 
-# called with a pipe operator (|) and can take arguments. Read more on 
-# [Filter functions page](https://linear-b.github.io/gitstream-mkdocs/23_gitstream-filters/).
+# called with a pipe operator (|) and can take arguments. Read more on https://docs.gitstream.cm
 
 automations:
   # This is the name of the review automation. You can use whatever name, a meaningful name 
@@ -33,53 +32,67 @@ automations:
     run: 
       # When the changes are validated as formatting only, you can help to speed up the review 
       # by adding a label that marks it accordingly.
-      - action: add-labels@v1
+      - action: add-label@v1
         args:
-          labels: ['formatting-changes']
+          label: 'formatting-changes'
       # You can uncomment the following action to get gitStream can even automatically approve 
       # such PRs to save reviewers time for such changes.
       # - action: approve@v1
-  
+
   docs_safe_changes:
     if:
       # Given the PR files changes, check that only documents were changed.
       - {{ files | allDocs }}
     run: 
-      - action: add-labels@v1
+      - action: add-label@v1
         args:
-          labels: ['docs-changes']
-      # - action: approve@v1
-  
+          label: 'docs-changes'
+      - action: approve@v1
+
   tests_safe_changes:
     if:
       # Given the PR files changes, check that only tests were changed. The allTests filter checks for 
       # the substring `test` or `spec` in the file path or file name.
       - {{ files | allTests }}
     run: 
-      - action: add-labels@v1
+      - action: add-label@v1
         args:
-          labels: ['tests-changes']
-      - action: add-comment@v1
+          label: 'tests-changes'
+      - action: approve@v1
+
+  images_safe_changes:
+    if:
+      # Check for every changed file if is a document file. The allImages filter checks for
+      # common file extensions used for graphics.
+      - {{ files | allImages }}
+    run:
+      - action: add-label@v1
         args:
-          comment: |
-            additions: {{ calculate.additions }} 
-            deletions: {{ calculate.deletions }}
-            ratio: {{ branch.diff.files_metadata | length }}
-            adds: {{ branch.diff.files_metadata | map(attr='additions') | string }}
-            dels: {{ branch.diff.files_metadata | map(attr='deletions') | length }}
-      # - action: approve@v1
-  
+          label: 'images'
+      - action: approve@v1
+
   mark_long_review:
     if:
       # gitStream estimatedReviewTime filter calculates the estimated review time in minutes
       # based on a statistical model. Review that takes more than 20 minutes is considered 
       # bad practice and therefore marked accordingly.
       - {{ branch | estimatedReviewTime >= 20 }}
+      - {{ files | length >= 10  }}
     run:
-      - action : add-labels@v1
+      - action : add-label@v1
         args:
-          labels: ['long-review']
+          label: 'long-review'
+          color: '#D2222D'
 
-calculate:
-  additions: {{ branch.diff.files_metadata | map(attr='additions') | replace("\n", "") | replace(",", "") | sum }}
-  deletions: {{ branch.diff.files_metadata | map(attr='deletions') | replace("\n", "") | replace(",", "") | sum }}
+  mark_short_review:
+    if:
+      # gitStream estimatedReviewTime filter calculates the estimated review time in minutes
+      # based on a statistical model. Review that takes more than 20 minutes is considered 
+      # bad practice and therefore marked accordingly.
+      - {{ branch | estimatedReviewTime <= 5 }}
+      - {{ files | length <= 2  }}
+    run:
+      - action : add-label@v1
+        args:
+          label: 'short-review'
+          color: '#238823'
