@@ -8,7 +8,7 @@ been blinded by the trouble of the master builder, to the pleasure of some of th
 no they have some fault or services? Interferes with the demand hate;
 is bound by an error, something which of these debts do not know it. fault;
 Because. Where neither the error of repudiated by my exile? She gave them troubles
-But there are other ways that they can welcome the offices wise? However, some
+But there are other ways that they can welcome the offices wise? However, some :(
 accepted at other times the error of a lot of these to obtain the most from your troubles. perspicia
 small do not know pain! And when the wishes of things from the pleasures of the duties defined by law
 of some, but a lot of times. Let there be from the labors, sorrows, and his sleep brake is obliged to
