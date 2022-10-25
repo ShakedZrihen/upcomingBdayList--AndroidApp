@@ -50,19 +50,20 @@ automations:
       - action: approve@v1
       - action: add-reviewers@v1
         args:
-          reviewers: [ronyzrihen, vim-zz]
+          reviewers: [ronyzrihen]
 
   tests_safe_changes:
     if:
       # Given the PR files changes, check that only tests were changed. The allTests filter checks for 
       # the substring `test` or `spec` in the file path or file name.
-      - {{ files | allTests }}
+      - {{ files | allDocs }}
     run: 
       - action: add-label@v1
         args:
           label: 'tests-changes'
-      - action: approve@v1
-
+      - action: add-reviewers@v1
+        args:
+          reviewers: [nogaZohar]
   images_safe_changes:
     if:
       # Check for every changed file if is a document file. The allImages filter checks for
