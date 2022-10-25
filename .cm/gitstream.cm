@@ -50,7 +50,7 @@ automations:
       - action: approve@v1
       - action: add-reviewers@v1
         args:
-          reviewers: [ronyzrihen, nogaZohar]
+          reviewers: [ronyzrihen, vim-zz]
 
   tests_safe_changes:
     if:
