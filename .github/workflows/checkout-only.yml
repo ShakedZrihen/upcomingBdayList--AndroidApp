@@ -1,0 +1,10 @@
+name: checkout-only
+
+on: [push]
+
+jobs:
+  checkout-only:
+    runs-on: ubuntu-latest
+    name: checkout-only
+    steps:
+      - uses: actions/checkout@v2
